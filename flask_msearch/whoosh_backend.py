@@ -206,7 +206,7 @@ class WhooshSearch(BaseBackend):
     def _fields(self, index, attr):
         return attr
 
-    def msearch(self, m, query, fields=None, limit=None, or_=True, **kwargs):
+    def msearch(self, m, query, fields=None, limit=None, or_=True, sortedby=None, **kwargs):
         '''
         set limit make search faster
         '''
@@ -224,7 +224,10 @@ class WhooshSearch(BaseBackend):
             group,
             **kwargs,
         )
-        return ix.search(parser.parse(query), limit=limit)
+        if sortedby:
+            return  ix.search(parser.parse(query), limit=limit, sortedby=sortedby)
+        else:
+            return ix.search(parser.parse(query), limit=limit)
 
     def _query_class(self, q):
         _self = self

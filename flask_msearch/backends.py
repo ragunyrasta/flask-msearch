@@ -12,12 +12,11 @@
 # **************************************************************************
 import logging
 
-from flask.helpers import locked_cached_property
-from flask_sqlalchemy import models_committed
+from flask_sqlalchemy.track_modifications import models_committed
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.inspection import inspect
 from werkzeug.utils import import_string
-
+from werkzeug.utils import cached_property as locked_cached_property
 from .signal import default_signal
 
 
